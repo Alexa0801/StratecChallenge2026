@@ -1,0 +1,27 @@
+[versions]
+agp = "8.6.0"
+activity = "1.8.2"
+coreKtx = "1.13.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+constraintlayout = "2.1.4"
+junit = "4.13.2"
+extJunit = "1.1.5"
+espresso = "3.5.1"
+
+
+[libraries]
+activity = { module = "androidx.activity:activity", version.ref = "activity" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+junit = { module = "junit:junit", version.ref = "junit" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "extJunit" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+ext-junit = { module = "androidx.test.ext:junit", version.ref = "extJunit" }
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+
