@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.stratecchallenge.domain.Planet;
 import com.example.stratecchallenge.domain.Rocket;
+import com.example.stratecchallenge.domain.SolarPlanet;
 import com.example.stratecchallenge.utils.Constants;
 
 import java.io.BufferedReader;
@@ -52,7 +53,7 @@ public class ReadingLogic {
         return planets;
     }
 
-    public Rocket readRocketData(Context context) {
+    public Rocket readRocket(Context context) {
         int engines = 0;
         double acc = 0;
 
@@ -78,5 +79,57 @@ public class ReadingLogic {
         }
 
         return new Rocket(engines, acc);
+    }
+
+    public List<SolarPlanet> readSolarPlanets(Context context) {
+        List<SolarPlanet> solarPlanets = new ArrayList<>();
+
+        try {
+            List<Planet> basePlanets = readPlanets(context);
+
+            InputStream is = context.getAssets().open("Solar_System_Data.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+
+                String[] parts = line.split(":");
+                String name = parts[0].trim();
+                String data = parts[1].trim();
+
+                String periodPart = data.split(",")[0];
+                int periodDays = Integer.parseInt(periodPart.replaceAll("[^0-9]", ""));
+
+                String radiusPart = data.split(",")[1];
+                double radiusAU = Double.parseDouble(radiusPart.replaceAll("[^0-9.]", ""));
+
+                Planet base = null;
+                for (Planet p : basePlanets) {
+                    if (p.getName().equalsIgnoreCase(name)) {
+                        base = p;
+                        break;
+                    }
+                }
+
+                if (base != null) {
+                    SolarPlanet sp = new SolarPlanet(
+                            base.getName(),
+                            base.getDiameterKm(),
+                            base.getMassKg(),
+                            radiusAU,
+                            periodDays
+                    );
+                    solarPlanets.add(sp);
+                }
+            }
+
+            br.close();
+        } catch (Exception e) {
+            System.out.println("Error reading solar planets: " + e.getMessage());
+        }
+
+        return solarPlanets;
     }
 }

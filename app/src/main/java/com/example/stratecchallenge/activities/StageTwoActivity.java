@@ -58,8 +58,8 @@ public class StageTwoActivity extends AppCompatActivity {
 
     private void handleCalculateTimeToReach() {
         List<Planet> planets = reader.readPlanets(this);
-        Rocket rocket = reader.readRocketData(this);
-        StringBuilder result = controller.calculateTimeToReachSpace(this, planets, rocket);
+        Rocket rocket = reader.readRocket(this);
+        StringBuilder result = controller.calculateTimeToEscape(planets, rocket);
         timeToReach.setText(result);
     }
 }
