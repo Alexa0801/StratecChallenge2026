@@ -67,6 +67,3 @@ It calculates:
 
 ## All input files are in the assets folder
 
-
-
-You can now run and test your space simulation app 🚀
